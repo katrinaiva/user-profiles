@@ -3,16 +3,20 @@ import { UserCardComponent } from '../user-card/user-card.component';
 import { UserService } from '../../mock-data/user.service';
 import { CommonModule } from '@angular/common';
 import { UserModel } from '../user.model';
+import { Modal } from 'bootstrap';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-user-profiles',
-  imports: [CommonModule, UserCardComponent],
+  imports: [CommonModule, UserCardComponent, ConfirmModalComponent],
   templateUrl: './user-profiles.component.html',
   styleUrl: './user-profiles.component.scss',
   standalone: true,
 })
 export class UserProfilesComponent {
   users: UserModel[] = [];
+  initialUsers: UserModel[] = [];
+  userToRemove: UserModel | null = null;
 
   constructor(private userService: UserService) {}
 
@@ -20,22 +24,29 @@ export class UserProfilesComponent {
     this.users = this.userService.getUsers();
   }
 
-  addNewUser() {
+  addNewUser(): void {
     this.users.push({
       id: null,
+      picture: '',
       firstName: '',
       lastName: '',
-      age: null,
-      picture: '',
+      age: null!,
       editMode: true,
     });
   }
 
   saveUser(user: UserModel): void {
-    if (user.id) {
-      this.userService.updateUser(user);
+    if (user.id === null) {
+      // Find the user in the array
+      const index = this.users.findIndex((u) => u.id === null);
+
+      if (index !== -1) {
+        // Create a new object based on user and update this.users[index]
+        const updatedUser = { ...user, id: this.users.length };
+        this.users[index] = updatedUser;
+      }
     } else {
-      this.userService.addUser(user);
+      this.userService.updateUser(user);
     }
     user.editMode = false;
   }
@@ -44,18 +55,34 @@ export class UserProfilesComponent {
     user.editMode = true;
   }
 
+  // modal remove user
   removeUser(user: UserModel): void {
-    if (confirm('Are you sure you want to remove this user?')) {
-      this.userService.deleteUser(user.id as number);
-      this.users = this.users.filter((u) => u.id !== user.id);
+    this.userToRemove = user;
+
+    const modalElement = document.getElementById('confirmModal');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
     }
   }
 
+  confirmRemoveUser(): void {
+    if (this.userToRemove) {
+      this.users = this.users.filter((u) => u.id !== this.userToRemove!.id);
+      this.userToRemove = null;
+    }
+  }
+
+  cancelRemoveUser(): void {
+    this.userToRemove = null;
+  }
+  // modal remove user
+
   cancelEditMode(user: UserModel): void {
-    if (!user.id) {
-      this.removeUser(user);
+    if (user.id === null) {
+      this.users = this.users.filter((u) => u !== user); // Удаляем карточку, если ID отсутствует (новый пользователь)
     } else {
-      user.editMode = false;
+      user.editMode = false; // Выключаем режим редактирования для существующего пользователя
     }
   }
 }

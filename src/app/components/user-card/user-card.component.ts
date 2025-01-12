@@ -47,25 +47,27 @@ export class UserCardComponent {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeForm();
+    this.editMode = this.user?.editMode || false;
   }
 
-  enableEditMode() {
+  enableEditMode(): void {
     this.editMode = true;
   }
 
-  saveUser() {
-    console.log('this.userForm.value', this.userForm.value);
-    this.save.emit(this.userForm.value as UserModel);
-    this.editMode = false;
+  saveUser(): void {
+    if (this.userForm.valid) {
+      this.save.emit(this.userForm.value as UserModel);
+      this.editMode = false;
+    }
   }
 
-  removeUser() {
+  removeUser(): void {
     this.remove.emit(this.user);
   }
 
-  cancelEditMode() {
+  cancelEditMode(): void {
     this.initializeForm();
     this.editMode = false;
     this.cancel.emit();

@@ -2,7 +2,8 @@
   <button class="btn btn-primary mb-3" (click)="addNewUser()">Add New</button>
 
   <div class="row">
-    <div *ngFor="let user of users" class="col-md-4 mb-4">
+    @for (user of users; track user) {
+    <div class="col-md-4 mb-4">
       <app-user-card
         [user]="user"
         (save)="saveUser($event)"
@@ -12,5 +13,13 @@
       >
       </app-user-card>
     </div>
+    }
   </div>
 </div>
+
+<app-confirm-modal
+  [title]="'Remove profile'"
+  [message]="'Are you sure you want to remove this user profile?'"
+  (confirm)="confirmRemoveUser()"
+  (cancel)="cancelRemoveUser()"
+></app-confirm-modal>

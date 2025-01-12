@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { UserModel } from '../components/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private users = [
+  private users: UserModel[] = [
     {
       id: 1,
       firstName: 'John',
@@ -41,7 +42,9 @@ export class UserService {
 
   addUser(user: any) {
     user.id = this.users.length + 1;
+    console.log('addUseruserid', user.id);
     this.users.push(user);
+    console.log('this.users', this.users);
   }
 
   updateUser(user: any) {
