@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { UserModel } from '../user.model';
 
@@ -20,7 +21,7 @@ export class UserCardComponent {
   @Output() save = new EventEmitter<UserModel>();
   @Output() edit = new EventEmitter<UserModel>();
   @Output() remove = new EventEmitter<UserModel | null>();
-  @Output() cancel = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<UserModel | null>();
 
   userForm: FormGroup;
   editMode: boolean = false;
@@ -29,9 +30,12 @@ export class UserCardComponent {
     this.userForm = this.fb.group({
       id: [null],
       picture: [''],
-      firstName: [''],
-      lastName: [''],
-      age: [''],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      age: [
+        null,
+        [Validators.required, Validators.min(1), Validators.max(120)],
+      ],
     });
   }
 
@@ -57,10 +61,12 @@ export class UserCardComponent {
   }
 
   saveUser(): void {
-    if (this.userForm.valid) {
-      this.save.emit(this.userForm.value as UserModel);
-      this.editMode = false;
-    }
+    setTimeout(() => {
+      if (this.userForm.valid) {
+        this.save.emit(this.userForm.value as UserModel);
+        this.editMode = false;
+      }
+    }, 500);
   }
 
   removeUser(): void {
@@ -71,5 +77,27 @@ export class UserCardComponent {
     this.initializeForm();
     this.editMode = false;
     this.cancel.emit();
+  }
+
+  uploadPicture(): void {
+    const fileInput = document.getElementById('picture') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.click(); // Симуляция нажатия на input
+    }
+  }
+
+  onPictureSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input && input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const fileData = reader.result as string;
+        this.userForm.patchValue({ picture: fileData }); // Обновление формы
+      };
+
+      reader.readAsDataURL(file); // Чтение файла как base64
+    }
   }
 }

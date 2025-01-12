@@ -56,7 +56,7 @@ export class UserProfilesComponent {
   }
 
   // modal remove user
-  removeUser(user: UserModel): void {
+  removeUser(user: UserModel | null): void {
     this.userToRemove = user;
 
     const modalElement = document.getElementById('confirmModal');
@@ -78,11 +78,13 @@ export class UserProfilesComponent {
   }
   // modal remove user
 
-  cancelEditMode(user: UserModel): void {
-    if (user.id === null) {
-      this.users = this.users.filter((u) => u !== user); // Удаляем карточку, если ID отсутствует (новый пользователь)
-    } else {
-      user.editMode = false; // Выключаем режим редактирования для существующего пользователя
+  cancelEditMode(user: UserModel | null): void {
+    if (user) {
+      if (user.id === null) {
+        this.users = this.users.filter((u) => u !== user); // Удаляем карточку, если ID отсутствует (новый пользователь)
+      } else {
+        user.editMode = false; // Выключаем режим редактирования для существующего пользователя
+      }
     }
   }
 }
