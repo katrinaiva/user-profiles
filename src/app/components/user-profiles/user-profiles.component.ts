@@ -78,7 +78,7 @@ export class UserProfilesComponent {
   }
   // modal remove user
 
-  cancelEditMode(user: UserModel | null): void {
+  cancelEditMode(user: UserModel | null, event: Event): void {
     if (user) {
       if (user.id === null) {
         this.users = this.users.filter((u) => u !== user); // Удаляем карточку, если ID отсутствует (новый пользователь)

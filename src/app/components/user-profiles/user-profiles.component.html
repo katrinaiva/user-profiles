@@ -9,7 +9,7 @@
         (save)="saveUser($event)"
         (edit)="editUser(user)"
         (remove)="removeUser($event)"
-        (cancel)="cancelEditMode($event)"
+        (cancel)="cancelEditMode($event.user, $event.event)"
       >
       </app-user-card>
     </div>

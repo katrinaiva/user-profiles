@@ -21,7 +21,10 @@ export class UserCardComponent {
   @Output() save = new EventEmitter<UserModel>();
   @Output() edit = new EventEmitter<UserModel>();
   @Output() remove = new EventEmitter<UserModel | null>();
-  @Output() cancel = new EventEmitter<UserModel | null>();
+  @Output() cancel = new EventEmitter<{
+    user: UserModel | null;
+    event: Event;
+  }>();
 
   userForm: FormGroup;
   editMode: boolean = false;
@@ -73,10 +76,10 @@ export class UserCardComponent {
     this.remove.emit(this.user);
   }
 
-  cancelEditMode(): void {
+  cancelEditMode(event: Event): void {
     this.initializeForm();
     this.editMode = false;
-    this.cancel.emit();
+    this.cancel.emit({ user: this.user, event });
   }
 
   uploadPicture(): void {
