@@ -15,7 +15,6 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 })
 export class UserProfilesComponent {
   users: UserModel[] = [];
-  initialUsers: UserModel[] = [];
   userToRemove: UserModel | null = null;
 
   constructor(private userService: UserService) {}
@@ -80,9 +79,9 @@ export class UserProfilesComponent {
   cancelEditMode(user: UserModel | null, event: Event): void {
     if (user) {
       if (user.id === null) {
-        this.users = this.users.filter((u) => u !== user); // Удаляем карточку, если ID отсутствует (новый пользователь)
+        this.users = this.users.filter((u) => u !== user);
       } else {
-        user.editMode = false; // Выключаем режим редактирования для существующего пользователя
+        user.editMode = false;
       }
     }
   }

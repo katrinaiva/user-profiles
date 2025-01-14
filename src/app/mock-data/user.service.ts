@@ -11,7 +11,7 @@ export class UserService {
       name: 'John Doe',
 
       age: 25,
-      picture: 'https://picsum.photos/id/13/400/200',
+      picture: 'https://picsum.photos/id/13/200/400',
     },
     {
       id: 2,
@@ -42,9 +42,7 @@ export class UserService {
 
   addUser(user: any) {
     user.id = this.users.length + 1;
-    console.log('addUseruserid', user.id);
     this.users.push(user);
-    console.log('this.users', this.users);
   }
 
   updateUser(user: any) {
