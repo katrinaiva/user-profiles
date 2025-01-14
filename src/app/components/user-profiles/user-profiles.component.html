@@ -13,7 +13,13 @@
 <div class="container">
   <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
     <h1>Profiles</h1>
-    <button class="btn btn-primary" (click)="addNewUser()">Add New</button>
+    <button
+      class="btn btn-primary"
+      (click)="addNewUser()"
+      [disabled]="isNewCardEditMode"
+    >
+      Add New
+    </button>
   </div>
 
   <div class="row">

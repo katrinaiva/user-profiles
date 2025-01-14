@@ -78,10 +78,13 @@ export class UserCardComponent {
     this.cancel.emit({ user: this.user, event });
   }
 
-  uploadPicture(): void {
-    const fileInput = document.getElementById('picture') as HTMLInputElement;
+  uploadPicture(id: number): void {
+    const idCard = String(id);
+    const parentCard = document.getElementById(idCard);
+    const fileInput = parentCard?.querySelector('#picture') as HTMLInputElement;
+
     if (fileInput) {
-      fileInput.click(); // Симуляция нажатия на input
+      fileInput.click();
     }
   }
 
@@ -93,10 +96,10 @@ export class UserCardComponent {
 
       reader.onload = () => {
         const fileData = reader.result as string;
-        this.userForm.patchValue({ picture: fileData }); // Обновление формы
+        this.userForm.patchValue({ picture: fileData });
       };
 
-      reader.readAsDataURL(file); // Чтение файла как base64
+      reader.readAsDataURL(file);
     }
   }
 }

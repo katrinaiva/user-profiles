@@ -19,6 +19,10 @@ export class UserProfilesComponent {
 
   constructor(private userService: UserService) {}
 
+  get isNewCardEditMode() {
+    return this.users.some((u) => u.id === null);
+  }
+
   ngOnInit() {
     this.users = this.userService.getUsers();
   }

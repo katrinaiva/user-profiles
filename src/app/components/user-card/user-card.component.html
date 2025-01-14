@@ -1,5 +1,5 @@
-<article class="card">
-  <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+<form [formGroup]="userForm" (ngSubmit)="saveUser()">
+  <article class="card" [id]="userForm.get('id')?.value">
     <div class="card-wrap-img">
       @if (userForm.get('picture')?.value){
       <img
@@ -14,7 +14,7 @@
       <button
         type="button"
         class="btn btn-outline-primary upload-btn"
-        (click)="uploadPicture()"
+        (click)="uploadPicture(userForm.get('id')?.value)"
       >
         Upload Picture
       </button>
@@ -121,5 +121,5 @@
       </div>
       }
     </div>
-  </form>
-</article>
+  </article>
+</form>
