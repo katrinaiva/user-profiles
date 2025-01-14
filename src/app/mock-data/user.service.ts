@@ -10,7 +10,7 @@ export class UserService {
       id: 1,
       name: 'John Doe',
 
-      age: 25,
+      age: 55,
       picture: 'https://picsum.photos/id/13/200/400',
     },
     {
@@ -31,7 +31,7 @@ export class UserService {
       id: 4,
       name: '2Jane 2Smith',
 
-      age: 50,
+      age: 5,
       picture: 'https://picsum.photos/id/15/400/200',
     },
   ];

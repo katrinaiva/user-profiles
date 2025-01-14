@@ -16,6 +16,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 export class UserProfilesComponent {
   users: UserModel[] = [];
   userToRemove: UserModel | null = null;
+  isSortAscending: boolean = true;
 
   constructor(private userService: UserService) {}
 
@@ -88,5 +89,12 @@ export class UserProfilesComponent {
         user.editMode = false;
       }
     }
+  }
+
+  sortUsersByAge(): void {
+    this.isSortAscending = !this.isSortAscending;
+    this.users.sort((a, b) =>
+      this.isSortAscending ? a.age - b.age : b.age - a.age
+    );
   }
 }

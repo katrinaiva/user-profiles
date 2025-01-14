@@ -9,3 +9,27 @@
     text-transform: uppercase;
   }
 }
+
+.sort-user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 4px;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-image: url("/assets/img/arrowDown.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &.inc {
+    &::before {
+      transform: rotate(180deg);
+    }
+  }
+}

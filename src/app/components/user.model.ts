@@ -1,7 +1,7 @@
 export interface UserModel {
   id: number | null;
   name: string;
-  age: number | null;
+  age: number;
   picture: string;
   editMode?: boolean;
 }
