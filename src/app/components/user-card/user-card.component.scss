@@ -1,0 +1,25 @@
+.upload-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.card-img {
+  object-fit: cover;
+  height: 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.card-wrap-img {
+  height: 200px;
+  background-color: #f5f5f5;
+  border-top-left-radius: var(--bs-card-border-radius);
+  border-top-right-radius: var(--bs-card-border-radius);
+}
+
+.card-body {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+}

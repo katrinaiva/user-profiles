@@ -1,14 +1,21 @@
 <article class="card">
   <form [formGroup]="userForm" (ngSubmit)="saveUser()">
-    <img
-      [src]="userForm.get('picture')?.value"
-      class="card-img-top"
-      alt="User Picture"
-    />
+    <div class="card-wrap-img">
+      @if (userForm.get('picture')?.value){
+      <img
+        [src]="userForm.get('picture')?.value"
+        class="card-img"
+        alt="User Picture"
+      />
+      }
+    </div>
     @if (editMode) {
-
     <div class="form-group">
-      <button type="button" class="btn btn-secondary" (click)="uploadPicture()">
+      <button
+        type="button"
+        class="btn btn-outline-primary upload-btn"
+        (click)="uploadPicture()"
+      >
         Upload Picture
       </button>
       <input
@@ -22,68 +29,38 @@
     }
 
     <div class="card-body">
-      <div class="card-title">
-        @if(!editMode){
-        <span
-          >{{ userForm.get("firstName")?.value }}
-          {{ userForm.get("lastName")?.value }}</span
-        >
-        }@else {
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input
-            id="firstName"
-            type="text"
-            formControlName="firstName"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                userForm.get('firstName')?.invalid &&
-                userForm.get('firstName')?.touched
-            }"
-          />
-          @if(userForm.get('firstName')?.invalid &&
-          userForm.get('firstName')?.touched) {
-          <div class="invalid-feedback">
-            @if(userForm.get('firstName')?.errors?.['required']){
-            <small>First Name is required.</small>
-            } @if(userForm.get('firstName')?.errors?.['minlength']) {
-            <small>First Name must be at least 2 characters.</small>
-            }
-          </div>
-          }
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input
-            id="lastName"
-            type="text"
-            formControlName="lastName"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                userForm.get('lastName')?.invalid &&
-                userForm.get('lastName')?.touched
-            }"
-          />
-          @if(userForm.get('lastName')?.invalid &&
-          userForm.get('lastName')?.touched) {
-          <div class="invalid-feedback">
-            @if(userForm.get('lastName')?.errors?.['required']){
-            <small>First Name is required.</small>
-            } @if(userForm.get('lastName')?.errors?.['minlength']) {
-            <small>First Name must be at least 2 characters.</small>
-            }
-          </div>
-          }
-        </div>
-        }
+      @if(!editMode){
+      <!-- todo -->
+      <div
+        class="gap-3 d-flex justify-content-between align-items-center mb-4 mt-2"
+      >
+        <span class="fw-bold fs-5">{{ userForm.get("name")?.value }} </span>
+        <span class="text-secondary">
+          {{ userForm.get("age")?.value }} y.o
+        </span>
       </div>
-
-      <div class="card-text">
-        @if(!editMode){
-        <span>Age: {{ userForm.get("age")?.value }}</span>
-        } @else {
+      }@else {
+      <div class="gap-3 d-flex justify-content-between mb-4">
+        <div class="form-group">
+          <label for="name"> Name</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                userForm.get('name')?.invalid && userForm.get('name')?.touched
+            }"
+          />
+          @if(userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+          <div class="invalid-feedback">
+            @if(userForm.get('name')?.errors?.['required']){
+            <small>Field is required</small>
+            }
+          </div>
+          }
+        </div>
         <div class="form-group">
           <label for="age">Age</label>
           <input
@@ -91,51 +68,57 @@
             type="number"
             formControlName="age"
             class="form-control"
+            min="1"
             [ngClass]="{
               'is-invalid':
                 userForm.get('age')?.invalid && userForm.get('age')?.touched
             }"
           />
 
-          <div
-            *ngIf="userForm.get('age')?.invalid && userForm.get('age')?.touched"
-            class="invalid-feedback"
-          >
-            <small *ngIf="userForm.get('age')?.errors?.['required']"
-              >Age is required.</small
-            >
-            <small *ngIf="userForm.get('age')?.errors?.['min']"
-              >Age must be at least 1.</small
-            >
-            <small *ngIf="userForm.get('age')?.errors?.['max']"
-              >Age cannot exceed 120.</small
-            >
+          <div class="invalid-feedback">
+            @if (userForm.get('age')?.invalid && userForm.get('age')?.touched) {
+            <small *ngIf="userForm.get('age')?.errors?.['required']">
+              Field is required
+            </small>
+
+            }
           </div>
         </div>
-        }
       </div>
-      @if (!editMode) {
-      <button type="button" class="btn btn-warning" (click)="enableEditMode()">
-        Edit
-      </button>
-      <button type="button" class="btn btn-danger" (click)="removeUser()">
-        Remove
-      </button>
+      } @if (!editMode) {
+      <div class="d-flex justify-content-between mt-auto">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="removeUser()"
+        >
+          Remove
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="enableEditMode()"
+        >
+          Edit
+        </button>
+      </div>
       } @else {
-      <button
-        type="submit"
-        class="btn btn-success"
-        [disabled]="userForm.invalid"
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        class="btn btn-danger"
-        (click)="cancelEditMode($event)"
-      >
-        Cancel
-      </button>
+      <div class="d-flex justify-content-between mt-auto">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="cancelEditMode($event)"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-outline-primary"
+          [disabled]="userForm.invalid"
+        >
+          Save
+        </button>
+      </div>
       }
     </div>
   </form>

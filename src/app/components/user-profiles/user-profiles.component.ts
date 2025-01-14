@@ -28,8 +28,7 @@ export class UserProfilesComponent {
     this.users.push({
       id: null,
       picture: '',
-      firstName: '',
-      lastName: '',
+      name: '',
       age: null!,
       editMode: true,
     });

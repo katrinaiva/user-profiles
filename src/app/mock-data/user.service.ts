@@ -8,31 +8,31 @@ export class UserService {
   private users: UserModel[] = [
     {
       id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
+      name: 'John Doe',
+
       age: 25,
-      picture: 'https://picsum.photos/id/13/200/200',
+      picture: 'https://picsum.photos/id/13/400/200',
     },
     {
       id: 2,
-      firstName: 'Jane',
-      lastName: 'Smith',
+      name: 'Jane Smith',
+
       age: 30,
-      picture: 'https://picsum.photos/id/12/200/200',
+      picture: 'https://picsum.photos/id/12/400/200',
     },
     {
       id: 3,
-      firstName: '1Jane',
-      lastName: '1Smith',
+      name: '1Jane 1Smith',
+
       age: 40,
-      picture: 'https://picsum.photos/id/14/200/200',
+      picture: 'https://picsum.photos/id/14/400/200',
     },
     {
       id: 4,
-      firstName: '2Jane',
-      lastName: '2Smith',
+      name: '2Jane 2Smith',
+
       age: 50,
-      picture: 'https://picsum.photos/id/15/200/200',
+      picture: 'https://picsum.photos/id/15/400/200',
     },
   ];
 

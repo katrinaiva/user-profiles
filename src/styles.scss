@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+$primary: #7346f5;
+$danger: #dc2b3c;
+
+@import "bootstrap/scss/bootstrap";
+
+html,
+:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --bs-body-font-family: "Roboto", serif;
+  --bs-btn-bg: var(--white-color);
+  --bs-border-radius: var(--bs-border-radius-sm);
+}
+
+h1,
+h2,
+h3 {
+  color: #333;
+  margin: 0;
+}
+
+.btn-outline-primary {
+  --bs-btn-bg: var(--white-color);
+}
+
+.btn {
+  --bs-btn-font-size: 0.875rem;
+}
+
+.form-group {
+  label {
+    font-size: 0.875rem;
+  }
+}
+
+.form-control {
+  padding: 0.175rem 0.75rem;
+
+  &:focus {
+    box-shadow: none;
+    border-color: var(--black-color);
+  }
+
+  &.is-invalid {
+    padding-right: 0.75rem;
+    background-image: none;
+  }
+}
+
+.invalid-feedback {
+  position: absolute;
+}

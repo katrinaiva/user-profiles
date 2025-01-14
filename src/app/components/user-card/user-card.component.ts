@@ -33,12 +33,8 @@ export class UserCardComponent {
     this.userForm = this.fb.group({
       id: [null],
       picture: [''],
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      age: [
-        null,
-        [Validators.required, Validators.min(1), Validators.max(120)],
-      ],
+      name: ['', [Validators.required]],
+      age: [null, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -47,8 +43,8 @@ export class UserCardComponent {
       this.userForm.patchValue({
         id: this.user.id || null,
         picture: this.user.picture || '',
-        firstName: this.user.firstName || '',
-        lastName: this.user.lastName || '',
+        name: this.user.name || '',
+
         age: this.user.age || null,
       });
     }

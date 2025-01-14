@@ -1,0 +1,11 @@
+.header {
+  background-color: var(--bs-primary);
+  padding: 1rem 0;
+
+  &__link {
+    color: var(--white-color);
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
